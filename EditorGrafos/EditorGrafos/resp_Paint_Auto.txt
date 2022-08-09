@@ -1,0 +1,122 @@
+{
+            int x, y, xb, yb;
+            Graphics g = e.Graphics;
+            Graphics pag = e.Graphics;
+            int ia, ib, iaBez, ibBez;
+            double tg, atg;
+            double tgBez, atgBez;
+            Point p, pBez;
+
+            //g = Graphics.FromImage(bmp_auto);
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            pag.SmoothingMode = SmoothingMode.AntiAlias;
+
+            //if (scroll_A == true)
+            {
+                //g.TranslateTransform(scroll_A_P.X, scroll_A_P.Y);
+                //g.ScaleTransform((p_Arbol.ClientSize.Width/arbol_size.Width), (p_Arbol.ClientSize.Height/arbol_size.Height));
+            }
+
+            //Pen pen = new Pen(Color.Black, 1);
+            Pen pen = penAuto;
+            Brush br = new SolidBrush(Color.Black);
+            Brush br_Back = new SolidBrush(BackColor);
+
+            g.Clear(tabPage1.BackColor);
+
+            foreach (var item in a.listaAristasAuto)
+            {
+                tg = (double)(item.Origen.centro.Y - item.Destino.centro.Y) / (item.Destino.centro.X - item.Origen.centro.X);
+                atg = Math.Atan(tg);
+                ia = (int)((item.Destino.Rad * .53) * Math.Cos(atg));
+                ib = (int)((item.Destino.Rad * .53) * Math.Sin(atg));
+
+                if (item.Origen.centro.X < item.Destino.centro.X)
+                {
+                    ia *= -1;
+                    ib *= -1;
+                }
+
+                p = new Point(item.Destino.centro.X + ia, item.Destino.centro.Y - ib);
+
+                if (item.Origen != item.Destino)
+                {
+                    x = item.Origen.centro.X + ((item.Destino.centro.X - item.Origen.centro.X) / 2);
+                    y = item.Origen.centro.Y + ((item.Destino.centro.Y - item.Origen.centro.Y) / 2);
+
+                    if (item.Destino.nodID - item.Origen.nodID <= 1)
+                    {
+                        //g.DrawLine(pen, item.Origen.centro.X, item.Origen.centro.Y, item.Destino.centro.X, item.Destino.centro.Y);
+                        pen.Color = item.color;
+                        g.DrawLine(pen, item.Origen.centro, p);
+                        switch (Math.Sign(item.Destino.centro.X - item.Origen.centro.X))
+                        {
+                            case -1:
+                                g.DrawString(item.Dato, new Font(DefaultFont, FontStyle.Regular), br, item.Origen.centro.X - 30, item.Origen.centro.Y - 20);
+                                break;
+                            case 0:
+                                break;
+                            case 1:
+                                g.DrawString(item.Dato, new Font(DefaultFont, FontStyle.Regular), br, item.Origen.centro.X + 30, item.Origen.centro.Y - 20);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        xb = (item.Destino.centro.X - item.Origen.centro.X) / 4;
+                        yb = item.Origen.centro.X + (50 * item.Destino.nodID - item.Origen.nodID);
+
+                        pen.Color = item.color;
+                        switch (Math.Sign(item.Destino.nodID - item.Origen.nodID))
+                        {
+                            case -1:
+                                break;
+                            case 0:
+                                break;
+                            case 1:
+                                switch (Math.Sign(item.Destino.centro.X - item.Origen.centro.X))
+                                {
+                                    case -1:
+                                        g.DrawBezier(pen, item.Origen.centro.X, item.Origen.centro.Y, item.Origen.centro.X + xb, item.Origen.centro.Y + yb, item.Origen.centro.X + xb * 3, item.Origen.centro.Y + yb, p.X, p.Y);
+                                        g.DrawString(item.Dato, new Font(DefaultFont, FontStyle.Regular), br, item.Origen.centro.X + xb, item.Origen.centro.Y + y);
+                                        break;
+                                    case 0:
+                                        break;
+                                    case 1:
+                                        g.DrawBezier(pen, item.Origen.centro.X, item.Origen.centro.Y, item.Origen.centro.X + xb, item.Origen.centro.Y - yb, item.Origen.centro.X + xb * 3, item.Origen.centro.Y - yb, p.X, p.Y);
+                                        g.DrawString(item.Dato, new Font(DefaultFont, FontStyle.Regular), br, item.Origen.centro.X - xb, item.Origen.centro.Y - y);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    pen.Color = item.color;
+
+                    x = item.Origen.rect.Location.X - item.Origen.rad / 6;
+                    y = item.Origen.rect.Location.Y - item.Origen.rad / 6;
+                    g.DrawArc(penAuto, item.Origen.rect.Location.X - item.Origen.Rad / 6, item.Origen.rect.Location.Y - item.Origen.Rad / 6, item.Origen.Rad / 2, item.Origen.Rad / 2, 30, 310);
+
+                    //g.DrawArc(pen, x, y, 15, 15, 50, 350);
+                    g.DrawString(item.Dato, new Font(DefaultFont, FontStyle.Regular), br, x - 20, y - 20);
+                }
+
+
+            }
+            foreach (var item in a.listaNodosAuto)
+            {
+                pen.Color = item.color;
+
+                g.DrawEllipse(pen, item.rect);
+                g.FillEllipse(br_Back, item.rect);
+
+                g.DrawString(item.datos, new Font(DefaultFont, FontStyle.Regular), br, item.centro.X - 5, item.centro.Y);
+            }
+
+            //pag.DrawImage(bmp_auto, 0, 0);
+        }

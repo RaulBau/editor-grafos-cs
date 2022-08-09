@@ -1,0 +1,46 @@
+Matriz A.
+0 1 0 0 1 1 
+1 0 1 0 0 0 
+0 1 0 1 0 0 
+0 0 1 0 1 1 
+1 0 0 1 0 0 
+1 0 0 1 0 0 
+Matriz B.
+0 1 1 0 1 0 
+1 0 0 1 0 0 
+1 0 0 1 0 0 
+0 1 1 0 0 1 
+1 0 0 0 0 1 
+0 0 0 1 1 0 
+Empezando permutacion de matriz B, para B==A.
+Permutacion correcta encontrada, A=B
+Matriz A igual al la ultima permutacion.
+0 1 0 0 1 1 
+1 0 1 0 0 0 
+0 1 0 1 0 0 
+0 0 1 0 1 1 
+1 0 0 1 0 0 
+1 0 0 1 0 0 
+Matriz A.
+0 1 0 0 1 1 
+1 0 1 0 0 0 
+0 1 0 1 0 0 
+0 0 1 0 1 1 
+1 0 0 1 0 0 
+1 0 0 1 0 0 
+Matriz B.
+0 1 1 1 0 0 
+1 0 0 0 0 1 
+1 0 0 0 1 0 
+1 0 0 0 0 1 
+0 0 1 0 0 1 
+0 1 0 1 1 0 
+Empezando permutacion de matriz B, para B==A.
+Permutacion correcta encontrada, A=B
+Matriz A igual al la ultima permutacion.
+0 1 0 0 1 1 
+1 0 1 0 0 0 
+0 1 0 1 0 0 
+0 0 1 0 1 1 
+1 0 0 1 0 0 
+1 0 0 1 0 0 
